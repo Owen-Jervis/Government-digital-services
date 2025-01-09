@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Services Portal</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            background-color: #f4f4f4;
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background-color: #2c3e50;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            z-index: 1000;
+        }
+        .back-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            margin-right: 15px;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #34495e;
+            color: white;
+            padding: 15px;
+            height: 100vh;
+            overflow-y: auto;
+            margin-top: 50px;
+        }
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 12px;
+            font-size: 16px;
+        }
+        .sidebar a:hover {
+            background-color: #2c3e50;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        .form-section {
+            display: none;
+        }
+        .form-section.active {
+            display: block;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .confirmation {
+            background-color: #eaf7ea;
+            padding: 20px;
+            border: 1px solid #c8e6c9;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        label {
+            font-weight: bold;
+        }
+        .info-box {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .info-box.active {
+            display: block;
+        }
+    </style>
+    <script>
+        function showForm(service) {
+            document.querySelectorAll('.form-section').forEach(section => section.classList.remove('active'));
+            document.getElementById(service).classList.add('active');
+        }
+
+        function submitForm(service) {
+            const confirmation = document.getElementById(service + '-confirmation');
+            confirmation.style.display = 'block';
+            setTimeout(() => {
+                alert('Your application has been submitted. You will receive an email with further instructions.');
+            }, 200);
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        function showInfo(topic) {
+            document.querySelectorAll('.info-box').forEach(box => box.classList.remove('active'));
+            document.getElementById(topic).classList.add('active');
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <button class="back-button" onclick="goBack()">&larr; Back</button>
+        <h1>Government Services Portal</h1>
+    </div>
+
+    <div class="sidebar">
+        <h2>Services Menu</h2>
+        <a href="#" onclick="showForm('passport')">Apply for Passport</a>
+        <a href="#" onclick="showForm('driver-license')">Apply for Driver's License</a>
+        <a href="#" onclick="showForm('voter-id')">Apply for Voter ID</a>
+        <a href="#" onclick="showForm('birth-certificate')">Apply for Birth Certificate</a>
+        <a href="#" onclick="showForm('marriage-certificate')">Apply for Marriage Certificate</a>
+        <a href="#" onclick="showForm('gov-info')">Government Information</a>
+    </div>
+
+    <div class="content">
+        <h1>Welcome to the Government Services Portal</h1>
+        <p>Select a service from the menu to begin your application.</p>
+
+        <div id="passport" class="form-section">
+            <h2>Apply for Passport</h2>
+            <form onsubmit="event.preventDefault(); submitForm('passport');">
+                <label for="passport-name">Full Name:</label>
+                <input type="text" id="passport-name" name="name" required>
+
+                <label for="passport-email">Email:</label>
+                <input type="email" id="passport-email" name="email" required>
+
+                <label for="passport-dob">Date of Birth:</label>
+                <input type="date" id="passport-dob" name="dob" required>
+
+                <label for="passport-address">Address:</label>
+                <textarea id="passport-address" name="address" rows="4" required></textarea>
+
+                <button type="submit">Submit Application</button>
+            </form>
+            <div id="passport-confirmation" class="confirmation" style="display: none;">
+                Thank you for applying for a passport. You will receive an email with further instructions.
+            </div>
+        </div>
+
+        <div id="driver-license" class="form-section">
+            <h2>Apply for Driver's License</h2>
+            <form onsubmit="event.preventDefault(); submitForm('driver-license');">
+                <label for="license-name">Full Name:</label>
+                <input type="text" id="license-name" name="name" required>
+
+                <label for="license-email">Email:</label>
+                <input type="email" id="license-email" name="email" required>
+
+                <label for="license-dob">Date of Birth:</label>
+                <input type="date" id="license-dob" name="dob" required>
+
+                <label for="license-address">Address:</label>
+                <textarea id="license-address" name="address" rows="4" required></textarea>
+
+                <button type="submit">Submit Application</button>
+            </form>
+            <div id="driver-license-confirmation" class="confirmation" style="display: none;">
+                Thank you for applying for a driver's license. You will receive an email with further instructions.
+            </div>
+        </div>
+
+        <div id="voter-id" class="form-section">
+            <h2>Apply for Voter ID</h2>
+            <form onsubmit="event.preventDefault(); submitForm('voter-id');">
+                <label for="voter-name">Full Name:</label>
+                <input type="text" id="voter-name" name="name" required>
+
+                <label for="voter-email">Email:</label>
+                <input type="email" id="voter-email" name="email" required>
+
+                <label for="voter-dob">Date of Birth:</label>
+                <input type="date" id="voter-dob" name="dob" required>
+
+                <label for="voter-address">Address:</label>
+                <textarea id="voter-address" name="address" rows="4" required></textarea>
+
+                <button type="submit">Submit Application</button>
+            </form>
+            <div id="voter-id-confirmation" class="confirmation" style="display: none;">
+                Thank you for applying for a voter ID. You will receive an email with further instructions.
+            </div>
+        </div>
+
+        <div id="birth-certificate" class="form-section">
+            <h2>Apply for Birth Certificate</h2>
+            <form onsubmit="event.preventDefault(); submitForm('birth-certificate');">
+                <label for="birth-name">Full Name:</label>
+                <input type="text" id="birth-name" name="name" required>
+
+                <label for="birth-email">Email:</label>
+                <input type="email" id="birth-email" name="email" required>
+
+                <label for="birth-dob">Date of Birth:</label>
+                <input type="date" id="birth-dob" name="dob" required>
+
+                <label for="birth-parents">Parent(s) Name:</label>
+                <input type="text" id="birth-parents" name="parents" required>
+
+                <label for="birth-address">Place of Birth:</label>
+                <textarea id="birth-address" name="birthplace" rows="2" required></textarea>
+
+                <button type="submit">Submit Application</button>
+            </form>
+            <div id="birth-certificate-confirmation" class="confirmation" style="display: none;">
+                Thank you for applying for a birth certificate. You will receive an email with further instructions.
+            </div>
+        </div>
+
+        <div id="marriage-certificate" class="form-section">
+            <h2>Apply for Marriage Certificate</h2>
+            <form onsubmit="event.preventDefault(); submitForm('marriage-certificate');">
+                <label for="marriage-name1">Spouse 1 Name:</label>
+                <input type="text" id="marriage-name1" name="name1" required>
+
+                <label for="marriage-name2">Spouse 2 Name:</label>
+                <input type="text" id="marriage-name2" name="name2" required>
+
+                <label for="marriage-email">Email:</label>
+                <input type="email" id="marriage-email" name="email" required>
+
+                <label for="marriage-date">Date of Marriage:</label>
+                <input type="date" id="marriage-date" name="date" required>
+
+                <label for="marriage-place">Place of Marriage:</label>
+                <textarea id="marriage-place" name="place" rows="2" required></textarea>
+
+                <button type="submit">Submit Application</button>
+            </form>
+            <div id="marriage-certificate-confirmation" class="confirmation" style="display: none;">
+                Thank you for applying for a marriage certificate. You will receive an email with further instructions.
+            </div>
+        </div>
+
+        <div id="gov-info" class="form-section">
+            <h2>Government Information</h2>
+            <p>Click on a topic to learn more:</p>
+            <ul>
+                <li><a href="#" onclick="showInfo('taxation')">Taxation</a></li>
+                <li><a href="#" onclick="showInfo('healthcare')">Healthcare</a></li>
+                <li><a href="#" onclick="showInfo('education')">Education</a></li>
+                <li><a href="#" onclick="showInfo('infrastructure')">Infrastructure</a></li>
+                <li><a href="#" onclick="showInfo('environment')">Environmental Policies</a></li>
+            </ul>
+
+            <div id="taxation" class="info-box">
+                <h3>Taxation</h3>
+                <p>
+                    The UK has a well-defined taxation system managed by Her Majesty's Revenue and Customs (HMRC), used to fund public services like healthcare, education, defense, and infrastructure.
+                  </p>
+                  
+                  <p>
+                    Key taxes include Income Tax, which is levied on earnings with rates ranging from 0% (up to £12,570) to 45% (over £125,140), and National Insurance Contributions (NICs) for social security and pensions. Value Added Tax (VAT) applies to goods and services, with rates at 20% (standard), 5% (reduced), and 0% (essentials).
+                  </p>
+                  
+                  <p>
+                    Corporation Tax is set at 25% for profits over £250,000, while Capital Gains Tax varies from 10% to 20%. Inheritance Tax is 40% on estates above £325,000. Stamp Duty Land Tax (SDLT) is levied on property purchases, and Excise Duties apply to items like alcohol and fuel.
+                  </p>
+                  
+                  <p>
+                    Taxpayers benefit from reliefs like the Personal Savings Allowance, Marriage Allowance, and Pension Contributions relief. Employers use the Pay As You Earn (PAYE) system, while self-employed individuals report income via self-assessment. Tax rates and thresholds are updated annually in the UK Budget to reflect economic policies and priorities.
+                  </p>
+            </div>
+
+            <div id="healthcare" class="info-box">
+                <h3>Healthcare</h3>
+                <p>
+                    The UK healthcare system is primarily delivered through the National Health Service (NHS), which provides healthcare services that are free at the point of use for residents. The NHS is funded through general taxation and National Insurance Contributions (NICs).
+                  </p>
+                  
+                  <p>
+                    The NHS offers a wide range of services, including general practitioner (GP) consultations, hospital treatments, emergency care, maternity services, mental health support, and vaccinations. Prescriptions are free in certain parts of the UK, such as Scotland and Wales, but incur a standard fee in England unless the patient qualifies for exemptions.
+                  </p>
+                  
+                  <p>
+                    Private healthcare is also available in the UK, offering faster access to treatments and additional services. Many residents opt for private health insurance to complement NHS care, especially for non-urgent procedures.
+                  </p>
+                  
+                  <p>
+                    The UK healthcare system faces challenges such as long waiting times, staff shortages, and rising demand due to an aging population. However, it remains one of the most comprehensive healthcare systems globally, ensuring access to essential medical services for everyone.
+                  </p>
+                  
+                  <p>
+                    Recent developments include increased funding to modernize the NHS, expand digital healthcare services, and address the impacts of the COVID-19 pandemic. Efforts are also being made to improve preventive care, reduce health inequalities, and integrate social care with health services.
+                  </p>                  
+            </div>
+
+            <div id="education" class="info-box">
+                <h3>Education</h3>
+                <p>
+                    The UK education system is structured into four key stages: primary education, secondary education, further education, and higher education. Education is compulsory for children between the ages of 5 and 18, although the specific ages can vary slightly in Scotland, Wales, and Northern Ireland.
+                  </p>
+                  
+                  <p>
+                    Primary education covers ages 5 to 11, focusing on foundational subjects such as English, mathematics, and science. Secondary education spans ages 11 to 16 and culminates in the General Certificate of Secondary Education (GCSE) exams. After GCSEs, students can choose to pursue further education, including A-levels, T-levels, or vocational qualifications, which prepare them for higher education or the workforce.
+                  </p>
+                  
+                  <p>
+                    Higher education is provided by universities and colleges, offering undergraduate, postgraduate, and research degrees. Tuition fees for higher education vary, with England charging up to £9,250 per year for domestic students. Financial support, including student loans and grants, is available to assist with these costs.
+                  </p>
+                  
+                  <p>
+                    In addition to state-funded schools, the UK has private and independent schools, as well as international schools offering alternative curricula such as the International Baccalaureate (IB). The UK also places significant emphasis on apprenticeships and vocational training as pathways to skilled careers.
+                  </p>
+                  
+                  <p>
+                    Current challenges in the education system include addressing regional disparities, ensuring equal access to quality education, and managing teacher shortages. Recent initiatives have focused on increasing funding for schools, integrating technology in classrooms, improving mental health support for students, and enhancing skills training to meet the demands of a changing economy.
+                  </p>                  
+            </div>
+
+            <div id="infrastructure" class="info-box">
+                <h3>Infrastructure</h3>
+                <p>
+                    The UK’s infrastructure encompasses a wide range of systems and facilities that support daily life, including transport networks, energy systems, water supply, digital connectivity, and public buildings. These systems are critical to the functioning of the economy and the well-being of citizens.
+                  </p>
+                  
+                  <p>
+                    The transport infrastructure includes an extensive road network, railways, airports, and ports. Key projects include High Speed 2 (HS2), a high-speed rail network designed to improve connectivity between major cities, and ongoing upgrades to roads and public transport to reduce congestion and emissions.
+                  </p>
+                  
+                  <p>
+                    The energy infrastructure is a mix of renewable and non-renewable sources, including wind, solar, nuclear, and natural gas. The UK has made significant strides in renewable energy, with offshore wind farms contributing a growing share of electricity generation. Efforts are ongoing to transition to a low-carbon economy, supported by investments in energy storage and grid modernization.
+                  </p>
+                  
+                  <p>
+                    Digital infrastructure is a priority, with government initiatives aimed at expanding high-speed broadband and 5G networks across urban and rural areas. These efforts are designed to boost connectivity and support businesses and households in an increasingly digital economy.
+                  </p>
+                  
+                  <p>
+                    Water and waste management systems are managed by regional companies, ensuring the supply of clean water and efficient waste disposal. Investments are being made to improve flood defenses and reduce environmental impacts.
+                  </p>
+                  
+                  <p>
+                    Challenges in UK infrastructure include aging systems, funding constraints, and adapting to climate change. Recent policies have focused on increasing investment through public-private partnerships, improving regional connectivity, and making infrastructure more sustainable and resilient.
+                  </p>                  
+            </div>
+
+            <div id="environment" class="info-box">
+                <h3>Environmental Policies</h3>
+                <p>
+                    The UK faces several environmental challenges, including air pollution, climate change, loss of biodiversity, plastic waste, and water pollution. These issues pose significant risks to public health, ecosystems, and the economy.
+                  </p>
+                  
+                  <p>
+                    Air pollution remains a critical issue, particularly in urban areas. Harmful emissions from vehicles, industry, and domestic heating contribute to poor air quality, impacting respiratory health and causing thousands of premature deaths annually. The UK has introduced measures such as Clean Air Zones and incentives for electric vehicles to combat this problem.
+                  </p>
+                  
+                  <p>
+                    Climate change is another pressing concern, with the UK experiencing more frequent extreme weather events such as floods and heatwaves. Rising sea levels and coastal erosion also threaten infrastructure and habitats. The UK government has committed to achieving net-zero carbon emissions by 2050, with strategies focusing on renewable energy, energy efficiency, and sustainable transport.
+                  </p>
+                  
+                  <p>
+                    Biodiversity loss is a growing problem, driven by habitat destruction, pollution, and climate change. Many native species, such as bees and hedgehogs, are in decline. Efforts are being made to protect natural habitats through rewilding projects, conservation areas, and agricultural reforms.
+                  </p>
+                  
+                  <p>
+                    Plastic waste and littering remain widespread, with single-use plastics being a significant contributor to pollution in rivers and oceans. Initiatives such as plastic bag charges, bans on certain single-use plastics, and increased recycling targets aim to address this issue.
+                  </p>
+                  
+                  <p>
+                    Water pollution from agricultural runoff, industrial waste, and sewage spills continues to harm aquatic ecosystems and water quality. Programs to improve wastewater treatment and reduce agricultural pollution are underway to mitigate the impact.
+                  </p>
+                  
+                  <p>
+                    While significant progress has been made in addressing these environmental issues, challenges remain in implementing effective policies and ensuring public and private sector cooperation. Recent efforts focus on transitioning to a circular economy, increasing green investments, and raising public awareness about environmental sustainability.
+                  </p>                  
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
+
+
+
+
